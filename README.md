@@ -19,13 +19,13 @@ Proyecto_2_Nombre/
 ├── Codigo/
 ├── Diagramas/
 └── README.md
+```
 
 Cada carpeta de proyecto incluirá:
 - **Código fuente (.ino)**
 - **Diagrama del circuito** (imagen o Fritzing)
 - **Explicación detallada**
 - **Lista de componentes**
-- 
 ---
 
 ##  Proyectos incluidos
