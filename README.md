@@ -19,7 +19,7 @@ Proyecto_2_Nombre/
 ├── Codigo/
 ├── Diagramas/
 └── README.md
-```
+```texto
 
 Cada carpeta de proyecto incluirá:
 - **Código fuente (.ino)**
