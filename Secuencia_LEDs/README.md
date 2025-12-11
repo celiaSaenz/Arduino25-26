@@ -15,7 +15,7 @@ Es ideal para aprender **control de múltiples salidas digitales** y uso de **va
 
 ---
 
-## 🛠Requisitos
+## Requisitos
 
 - Arduino IDE o Arduino Cloud Web Editor
 - Placa Arduino Uno
