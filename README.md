@@ -4,10 +4,10 @@ El objetivo es ofrecer ejemplos prácticos para estudiantes, principiantes y ent
 
 ---
 
-## 📁 Estructura del Repositorio
+##  Estructura del Repositorio
 
 La estructura general será:
-
+```texto
 Proyecto_1_Nombre/
 ├── Codigo/
 │   └── sketch.ino
@@ -28,7 +28,7 @@ Cada carpeta de proyecto incluirá:
 - 
 ---
 
-## 🚀 Proyectos incluidos
+##  Proyectos incluidos
 
 | Proyecto | Descripción |
 |---------|-------------|
@@ -45,7 +45,7 @@ Cada carpeta de proyecto incluirá:
 
 ---
 
-## 🛠️ Requisitos
+##  Requisitos
 
 - **Arduino IDE** o **Arduino Cloud Web Editor**
 - Placa **Arduino Uno**
@@ -53,7 +53,7 @@ Cada carpeta de proyecto incluirá:
 
 ---
 
-## 📚 Cómo usar este repositorio
+## Cómo usar este repositorio
 
 1. Navega a la carpeta del proyecto que te interese.
 2. Revisa su **README** para ver el diagrama y la explicación.
@@ -63,7 +63,7 @@ Cada carpeta de proyecto incluirá:
 
 ---
 
-## 🤝 Contribuciones
+## Contribuciones
 
 Las contribuciones son bienvenidas. Puedes:
 - Añadir nuevos proyectos  
@@ -79,7 +79,7 @@ Las contribuciones son bienvenidas. Puedes:
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Este repositorio se distribuye bajo la licencia **MIT**, lo que permite uso libre con atribución.
 
