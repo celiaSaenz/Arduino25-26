@@ -1,11 +1,11 @@
 // Pines de botones
-int botones[] = {2, 3, 4, 5, 6, 7};
+int botones[] = {2, 3, 4, 5, 6};
 
-// Frecuencias de notas (DO, RE, MI, FA, SOL)
-int notas[] = {262, 294, 330, 349, 392, 440};
+// Frecuencias de notas (DO, RE, MI, FA)
+int notas[] = {262, 294, 330, 349, 392};
 
 int buzzer = 10;
-int totalBotones = 6;
+int totalBotones = 5;
 
 void setup() {
   for (int i = 0; i < totalBotones; i++) {
