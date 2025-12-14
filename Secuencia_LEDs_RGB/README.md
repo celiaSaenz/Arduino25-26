@@ -29,9 +29,9 @@ El objetivo es aprender a manejar componentes que integran múltiples actuadores
    - Las otras tres corresponden a los colores **Rojo (R)**, **Verde (G)** y **Azul (B)**.
 2. **Conexión:**
    - Conecta la pata larga (Cátodo) a **GND**.
-   - Conecta la pata del **Rojo** al pin **9** (con resistencia).
+   - Conecta la pata del **Rojo** al pin **11** (con resistencia).
    - Conecta la pata del **Verde** al pin **10** (con resistencia).
-   - Conecta la pata del **Azul** al pin **11** (con resistencia).
+   - Conecta la pata del **Azul** al pin **9** (con resistencia).
 3. Abre el archivo `.ino` en el Arduino IDE.
 4. Selecciona la placa **Arduino Uno** y el puerto correcto.
 5. Haz clic en **Cargar**.
@@ -46,7 +46,7 @@ Un LED RGB contiene en su interior tres LEDs pequeños (uno rojo, uno verde y un
 ### Conceptos clave del código:
 
 - **Constantes de pines:**
-  `const int ledRojo = 9;`
+  `const int ledRojo = 11;`
   Se usan constantes para definir los pines. Esto hace que el código sea más fácil de leer y modificar si cambias las conexiones.
 
 - **Función personalizada `encenderColor()`:**
