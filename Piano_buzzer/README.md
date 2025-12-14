@@ -12,7 +12,7 @@ Incluye dos vertientes: una básica para entender el control de sonido con un bo
 - 1 a 6 Pulsadores (Push buttons)
 - Cables de conexión
 - Protoboard
-- Resistencia 220 
+- Resistencia 220Ω
 
 ---
 
