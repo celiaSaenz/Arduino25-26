@@ -33,11 +33,11 @@ Cada carpeta de proyecto incluirá:
 | Proyecto | Descripción |
 |---------|-------------|
 | **LED parpadeante** | Encendido y apagado intermitente de un LED usando `digitalWrite()` y `delay()`. |
+| **Visualización de datos** | Lectura del estado de un botón y envío de mensajes al monitor serie. |
 | **Secuencia de LEDs** | Encendido secuencial de múltiples LEDs mediante diferentes métodos de programación. |
 | **Secuencia de LED RGB** | Cambio de colores en un LED RGB controlando canales Rojo, Verde y Azul. |
-| **Visualización de datos** | Lectura del estado de un botón y envío de mensajes al monitor serie. |
-| **Semáforo simple** | Simulación de un semáforo básico usando LEDs rojo, amarillo y verde. |
-| **Cruce de semáforos** | Control de dos semáforos que alternan el paso en un cruce vial. |
+| **Semáforo** | Simulación de un semáforo básico usando LEDs rojo, amarillo y verde. |
+| **Semáforo con cruce** | Control de dos semáforos que alternan el paso en un cruce vial. |
 | **Semáforo con cruce peatonal automático** | Alterna entre semáforo de autos y peatones con tiempos programados. |
 | **Semáforo con cruce peatonal (con botón)** | Semáforo que permite paso peatonal cuando se presiona un botón. |
 | **Piano con buzzer** | Reproducción de notas musicales usando pulsadores y un buzzer piezoeléctrico. |
