@@ -1,81 +1,91 @@
-# Proyecto: Termómetro con Alarma (LCD Estándar)
+# Proyecto: Termómetro Digital con Alarma (LCD Estándar)
 
-Este proyecto monitoriza la temperatura ambiental usando un sensor **DHT11** y muestra los datos en una **pantalla LCD 16x2 convencional** (conexión paralela).
-Incluye un sistema de seguridad que activa una alarma visual y sonora si la temperatura excede el límite seguro.
+Este proyecto convierte tu Arduino en una estación de monitoreo ambiental.
+Utiliza un sensor **DHT11** para leer temperatura y humedad, mostrando los valores en una **pantalla LCD 16x2** convencional. Además, incluye un sistema de seguridad que activa una alarma visual (LED) y sonora (Buzzer) si la temperatura supera un límite seguro (28°C).
 
 ---
 
 ## Materiales
 
 - Arduino Uno
-- 1 Sensor DHT11
-- 1 Pantalla LCD 16x2 (16 pines)
-- **1 Potenciómetro de 10kΩ** (Imprescindible para el contraste de la pantalla)
-- 1 Buzzer
+- 1 Sensor de temperatura y humedad DHT11
+- 1 Pantalla LCD 16x2 (versión estándar de 16 pines)
+- **1 Potenciómetro de 10kΩ** (Imprescindible para el contraste)
+- 1 Buzzer (Activo o Pasivo)
 - 1 LED Rojo
 - 1 Resistencia de 220Ω (para el LED)
-- Muchos cables de conexión
-- Protoboard
+- Cables de conexión y Protoboard
 
 ---
 
 ## Requisitos
 
 - **Software:** Arduino IDE
-- **Librerías:** 1. `DHT sensor library` (Instalar desde gestor)
-  2. `LiquidCrystal` (Viene incluida en Arduino)
-- **Hardware:** Placa Arduino Uno
+- **Librerías necesarias:**
+  1. `DHT sensor library` (Instalar desde el Gestor de Librerías).
+  2. `LiquidCrystal` (Viene preinstalada en Arduino IDE).
+- **Hardware:** Placa Arduino Uno.
 
 ---
 
 ## Esquema de Montaje
 
-El montaje de la pantalla requiere atención. Sigue la tabla pin a pin.
+Este proyecto requiere atención al cableado debido a la pantalla LCD. Sigue esta tabla conexión a conexión.
 
-### 1. Conexión de la Pantalla LCD (16 Pines)
-La pantalla tiene los pines numerados del 1 al 16 (de izquierda a derecha).
+### 1. Conexiones Principales
 
+| Componente | Pin/Pata | Conectar a... | Nota |
+|:--- |:--- |:--- |:--- |
+| **Potenciómetro** | Extremo Izq. | 5V | |
+| | Extremo Der. | GND | |
+| | **Centro** | **Pin 3 (V0)** de la LCD | **Controla el contraste** |
+| **Sensor DHT11** | VCC (+) | 5V | |
+| | GND (-) | GND | |
+| | DATA (S) | Pin Digital **8** | |
+| **LED Rojo** | Ánodo (+) | Pin Digital **9** | |
+| | Cátodo (-) | GND | Usar resistencia 220Ω |
+| **Buzzer** | Positivo (+) | Pin Digital **10** | |
+| | Negativo (-) | GND | |
 
-| Pin LCD | Nombre | Conexión | Función |
-|---|---|---|---|
-| 1 | VSS | **GND** Arduino | Tierra |
-| 2 | VDD | **5V** Arduino | Alimentación |
-| 3 | V0 | **Pata central del Potenciómetro** | Contraste (ver nota abajo) |
-| 4 | RS | Pin Digital **12** | Selección de registro |
-| 5 | RW | **GND** Arduino | Escritura (siempre a tierra) |
-| 6 | E | Pin Digital **11** | Enable (Habilitar) |
-| 11 | D4 | Pin Digital **5** | Datos |
-| 12 | D5 | Pin Digital **4** | Datos |
-| 13 | D6 | Pin Digital **3** | Datos |
-| 14 | D7 | Pin Digital **2** | Datos |
-| 15 | A (LED+) | **5V** (con resistencia 220Ω opc) | Luz de fondo |
-| 16 | K (LED-) | **GND** | Luz de fondo |
+### 2. Conexión Pantalla LCD (Pines 1 al 16)
 
-**Nota sobre el Potenciómetro:**
-Conecta una pata extrema del potenciómetro a 5V, la otra extrema a GND, y la **central al Pin 3 (V0)** de la LCD. Gíralo hasta ver los caracteres nítidos.
-
-### 2. Resto de componentes
-Debido a que la pantalla ocupa los pines 2 al 5, movemos el resto:
-- **Sensor DHT11 (Datos):** Al Pin Digital **8**.
-- **LED Rojo:** Al Pin Digital **9**.
-- **Buzzer:** Al Pin Digital **10**.
+| Pin LCD | Nombre | Conexión Arduino / Protoboard |
+|:--- |:--- |:--- |
+| 1 | VSS | GND |
+| 2 | VDD | 5V |
+| 3 | V0 | **Pata Central del Potenciómetro** |
+| 4 | RS | Pin Digital **12** |
+| 5 | RW | GND |
+| 6 | E | Pin Digital **11** |
+| 7-10 | - | No conectar (Vacíos) |
+| 11 | D4 | Pin Digital **5** |
+| 12 | D5 | Pin Digital **4** |
+| 13 | D6 | Pin Digital **3** |
+| 14 | D7 | Pin Digital **2** |
+| 15 | A (+) | 5V (Opcional: Resistencia 220Ω) |
+| 16 | K (-) | GND |
 
 ---
 
 ## Cómo usar
 
-1. Realiza el cableado con paciencia. Un solo cable mal puesto en la pantalla hará que no muestre nada.
-2. Carga el código `.ino` en tu Arduino.
-3. **Ajuste inicial:** Si la pantalla se enciende pero no ves texto (o ves cuadros blancos), **gira el potenciómetro** lentamente hasta que aparezcan las letras.
-4. Verifica que la temperatura se actualiza cada 2 segundos.
+1. **Instalar Librería:** Abre Arduino IDE, ve a *Programa > Incluir Librería > Administrar Bibliotecas*, busca **"DHT sensor library"** e instálala.
+2. Realiza el montaje siguiendo estrictamente la tabla de arriba.
+3. Abre el archivo `.ino` y cárgalo en la placa.
+4. **Paso Crítico:** Si la pantalla se enciende pero no ves texto (o ves rectángulos blancos), **gira la perilla del potenciómetro** suavemente hasta que las letras aparezcan nítidas.
+5. Prueba la alarma calentando el sensor con el aliento hasta superar los 28°C.
 
 ---
 
 ## Explicación
 
-### Conexión Paralela (4 bits)
-A diferencia de las pantallas I2C modernas, esta pantalla se conecta "a la antigua", usando 6 pines digitales del Arduino para enviar la información.
-- `LiquidCrystal lcd(12, 11, 5, 4, 3, 2);`: Le indicamos al Arduino qué pines físicos están conectados a los pines de control y datos de la pantalla.
+### Pantalla LCD (Modo 4 bits)
+La pantalla se conecta en modo paralelo utilizando 6 pines de control del Arduino.
+- `LiquidCrystal lcd(12, 11, 5, 4, 3, 2);`: Esta línea configura la librería para saber qué pines físicos del Arduino están conectados a los pines RS, E, D4, D5, D6 y D7 de la pantalla.
 
-### Gestión de Pines
-Al usar una pantalla paralela, consumimos casi todos los pines digitales básicos (del 2 al 5 y 11-12). Por eso es crucial planificar bien dónde conectamos los sensores extra (en este caso, movidos al 8, 9 y 10) para evitar conflictos de señal.
+### Sensor y Actuadores
+- El sensor DHT11 envía datos digitales por el pin 8.
+- El código evalúa la temperatura en cada ciclo del `loop()`.
+- **Condicional de Alarma:**
+  ```cpp
+  if (t >= umbralTemp) { ... }
