@@ -42,3 +42,15 @@ El código gestiona una máquina de estados secuencial dentro del `loop()`:
 4. **Fase 4:** Semáforo 1 pasa a **Amarillo**, el 2 se mantiene en Rojo. Dura 0.5 segundos.
 
 Esta lógica garantiza que nunca haya dos luces verdes encendidas al mismo tiempo, evitando "accidentes".
+
+
+## Conexiones (idénticas al proyecto):
+Semáforo 1:
+1. Pin 3 → Resistencia → LED rojo → GND
+2. Pin 4 → Resistencia → LED amarillo → GND
+3. Pin 5 → Resistencia → LED verde → GND
+
+Semáforo 2:
+1. Pin 6 → Resistencia → LED rojo → GND
+2. Pin 7 → Resistencia → LED amarillo → GND
+3. Pin 8 → Resistencia → LED verde → GND
