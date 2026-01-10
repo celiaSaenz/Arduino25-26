@@ -14,8 +14,6 @@ void setup() {
 
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(ledRojo, OUTPUT);
-  pinMode(ledVerde, OUTPUT);
 
   puerta.write(0); // Puerta cerrada
 }
