@@ -10,9 +10,6 @@ Utiliza un **sensor de ultrasonidos (HC-SR04)** para detectar la presencia de un
 - Arduino Uno
 - 1 Sensor de Ultrasonidos (HC-SR04)
 - 1 Micro Servomotor (ej. SG90)
-- 1 LED Rojo (Opcional, requiere añadir pines en el código)
-- 1 LED Verde (Opcional, requiere añadir pines en el código)
-- Resistencias de 220 Ohmios (para los LEDs)
 - Cables de conexión y Protoboard
 
 ---
