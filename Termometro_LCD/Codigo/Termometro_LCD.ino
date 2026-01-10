@@ -9,7 +9,7 @@ const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 // 2. Sensor DHT11
-#define DHTPIN 8      // ¡OJO! Lo hemos movido al pin 8
+#define DHTPIN 8      
 #define DHTTYPE DHT11 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -29,7 +29,6 @@ void setup() {
   // Iniciar LCD (16 columnas, 2 filas)
   lcd.begin(16, 2);
   
-  lcd.setCursor(0,0);
   lcd.print("Iniciando...");
   delay(2000);
   lcd.clear();
