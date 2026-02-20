@@ -47,10 +47,10 @@ Controlar un display directamente consume muchos pines del Arduino. Al usar el *
 
 - **Patrones Binarios (`byte`):**
   Se define un array llamado `seven_seg_digits` donde cada número está representado por un byte (8 bits). Cada bit indica si un segmento específico (a, b, c, d, e, f, g) debe encenderse (1) o apagarse (0).
-  ```cpp
+
   B11111100 // Representa el número 0 encendiendo casi todos los segmentos
 
-  - **Función `shiftOut()`:** Es la herramienta clave de Arduino para este proyecto. Permite enviar un byte completo (8 bits) de forma serial a través de un solo pin. La función se encarga de "trocear" el dato y enviarlo **bit a bit** al registro de desplazamiento. El parámetro `LSBFIRST` (*Least Significant Bit First*) indica que el envío comienza por el bit de menor valor.
+- **Función `shiftOut()`:** Es la herramienta clave de Arduino para este proyecto. Permite enviar un byte completo (8 bits) de forma serial a través de un solo pin. La función se encarga de "trocear" el dato y enviarlo **bit a bit** al registro de desplazamiento. El parámetro `LSBFIRST` (*Least Significant Bit First*) indica que el envío comienza por el bit de menor valor.
 
 
 
