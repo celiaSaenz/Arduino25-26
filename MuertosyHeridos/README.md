@@ -74,9 +74,9 @@ Cada LED:
    - `*`: borrar intento actual
    - `#`: enviar intento
 4. Observa el resultado:
-   - LEDs **rojos** encendidos → número de **muertos**
-   - LEDs **verdes/amarillos** encendidos → número de **heridos**
-5. Ganas cuando todos los dígitos son **muertos**.
+   - LEDs **rojos** encendidos → cantidad de números en posición correcta
+   - LEDs **verdes** encendidos → cantidad de números en posición incorrecta
+5. Ganas cuando todos los LEDs rojos se encienden has ganado.
 
 ---
 
