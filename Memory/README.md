@@ -1,50 +1,64 @@
-# Proyecto: Coche Propulsado por Motor de Aspas (Hélice)
+# Proyecto: Juego de Memoria (Memory) para 2 Jugadores
 
-Este proyecto consiste en un vehículo impulsado por la fuerza del aire generada por un motor con hélices (aspas) controlado por un Arduino. A diferencia de los coches con tracción en las ruedas, este modelo se desplaza por propulsión, similar a un aerodeslizador o un avión.
-
----
-
-## 📂 Contenido de la Carpeta
-
-En esta carpeta encontrarás dos variantes del código según el comportamiento que desees para el coche:
-
-| Archivo | ¿Para qué sirve? |
-| :--- | :--- |
-| **`MotorSinPausa.ino`** | El motor se enciende y mantiene una marcha constante. Ideal para carreras de larga distancia o pruebas de velocidad máxima. |
-| **`MotorConPausa.ino`** | El motor funciona de forma intermitente (avanza y se detiene). Útil para observar la inercia del coche y ahorrar batería durante las pruebas. |
+Este proyecto recrea el clásico juego de encontrar parejas de cartas utilizando un **teclado matricial 4x4** como tablero físico y una **pantalla LCD 16x2** con interfaz I2C para mostrar el progreso, los puntos y el estado de la partida. Está diseñado para que dos jugadores compitan por ver quién tiene mejor memoria.
 
 ---
 
-## 🛠️ Conexión del Hardware
+## Materiales
 
-El montaje es sencillo, pero requiere atención a la potencia del motor para no dañar el Arduino.
-
-### Componentes necesarios:
-* **Arduino Uno** (montado sobre el chasis del coche).
-* **Motor DC con hélices / aspas**.
-* **Transistor (ej. PN2222)**: Necesario para que el Arduino pueda encender el motor sin quemarse.
-* **Diodo de protección**: Para evitar retornos de corriente del motor.
-* **Batería externa**: Para dar suficiente fuerza a las aspas.
-
-### Configuración de Pines:
-* **Pin Digital 9**: Envía la señal de encendido al motor (a través del transistor).
-* **GND**: Conexión común de tierra entre la batería y el Arduino.
-
-
+* **Arduino Uno**
+* **Teclado Matricial 4x4** (Keypad)
+* **Pantalla LCD 16x2** con módulo **I2C**
+* **Cables de conexión** (Jumpers)
+* **Protoboard**
 
 ---
 
-## 🚀 Cómo ponerlo en marcha
+## Requisitos
 
-1. **Montaje mecánico:** Asegúrate de que el motor esté bien sujeto al chasis y que las aspas tengan espacio libre para girar sin golpear los cables.
-2. **Elección de código:**
-   - Si quieres que el coche recorra un pasillo recto sin parar, carga `MotorSinPausa.ino`.
-   - Si vas a probarlo en un espacio reducido, carga `MotorConPausa.ino`.
-3. **Sentido del aire:** Si el coche se mueve hacia atrás, simplemente intercambia los dos cables del motor para que las aspas giren en sentido contrario y empujen el aire hacia atrás.
+* **Arduino IDE** instalado.
+* Librería **Keypad** (disponible en el Gestor de Librerías).
+* Librería **LiquidCrystal_I2C** (disponible en el Gestor de Librerías).
 
 ---
 
-## ⚠️ Consejos de Seguridad
+## Cómo usar
 
-* **Hélices:** Mantén los dedos alejados de las aspas cuando el Arduino esté encendido.
-* **Peso:** Intenta que el coche sea lo más ligero posible (usa cartón o plástico ligero) para que la fuerza del aire sea suficiente para mover el peso del Arduino y las baterías.
+1.  **Conexión del Teclado (Pines digitales):**
+    * Filas ➔ Pines **2, 3, 4, 5**
+    * Columnas ➔ Pines **6, 7, 8, 9**
+2.  **Conexión de la Pantalla LCD (I2C):**
+    * SDA ➔ Pin **A4** (en Arduino Uno)
+    * SCL ➔ Pin **A5** (en Arduino Uno)
+    * VCC ➔ 5V
+    * GND ➔ GND
+3.  Carga el código en tu placa Arduino.
+4.  **Dinámica del juego:**
+    * El LCD indicará de quién es el turno (Jugador 1 o Jugador 2).
+    * Cada tecla del teclado (**1** al **D**) representa una posición en el tablero.
+    * Pulsa una tecla para revelar la primera carta (se mostrará una letra de la A a la H).
+    * Pulsa una segunda tecla para intentar encontrar su pareja.
+    * Si coinciden, sumas un punto. Si fallas, el turno pasa al siguiente jugador.
+    * Al encontrar las 8 parejas, la pantalla anunciará al ganador.
+
+---
+
+## Explicación
+
+El sistema gestiona un tablero virtual de 16 posiciones que se mezcla aleatoriamente en cada inicio de partida.
+
+### Conceptos clave del código:
+
+* **Mapeo del Teclado Matricial:**
+  Se utiliza la librería `Keypad` para leer una matriz de 16 botones usando solo 8 pines. El código traduce caracteres como '1', 'A' o '*' en índices numéricos del 0 al 15 para acceder al array del tablero.
+
+* **Mezcla Aleatoria (Random Seed):**
+  Para que las cartas no estén siempre en el mismo sitio, se usa `randomSeed(analogRead(A0))`. Esto toma el ruido eléctrico de un pin vacío para generar una semilla verdaderamente aleatoria al iniciar.
+
+* **Comunicación I2C:**
+  Al usar un adaptador I2C para el LCD, ahorramos muchos pines que de otro modo serían necesarios para los datos de la pantalla, permitiendo que el teclado y la pantalla coexistan sin conflictos de pines.
+
+* **Lógica de Validación:**
+  El programa incluye funciones como `leerCartaValida()` que comprueban si una carta ya fue resuelta o si el jugador está intentando pulsar la misma tecla dos veces, lanzando avisos en pantalla para guiar a los usuarios.
+
+---
