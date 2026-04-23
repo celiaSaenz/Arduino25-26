@@ -1,17 +1,18 @@
-# Proyecto: Contador con Display de 7 Segmentos y 74HC595
+# Proyecto: Display 7 Segmentos controlado por Control Remoto IR
 
-Este proyecto utiliza un **Registro de Desplazamiento 74HC595** para controlar un display de 7 segmentos. El objetivo principal es aprender a ahorrar pines del Arduino (usando solo 3 pines para controlar 8 salidas) y entender cómo enviar datos de forma serial a paralela.
+Este proyecto utiliza un **receptor infrarrojo (IR)** para recibir comandos de un mando a distancia y mostrar el número correspondiente en un **display de 7 segmentos**. Es un excelente ejercicio para entender la decodificación de señales inalámbricas y el control de salidas digitales mediante lógica de selección (`switch-case`).
 
 ---
 
 ## Materiales
 
-- Arduino Uno
-- Registro de desplazamiento **74HC595**
-- Display de 7 segmentos (Cátodo Común)
-- 7 Resistencias de 220Ω (una para cada segmento)
-- Cables de conexión
-- Protoboard
+* **Arduino Uno**
+* **Módulo Receptor IR** (ej. VS1838B)
+* **Control Remoto Infrarrojo**
+* **Display de 7 segmentos** (Cátodo Común)
+* **7 Resistencias de 220Ω**
+* **Cables de conexión**
+* **Protoboard**
 
 
 
@@ -19,41 +20,48 @@ Este proyecto utiliza un **Registro de Desplazamiento 74HC595** para controlar u
 
 ## Requisitos
 
-- Arduino IDE
-- Placa Arduino Uno o compatible
-- Esquema de pines del display de 7 segmentos
+* **Arduino IDE**
+* Librería **IRremote** (debe estar instalada en el IDE).
+* Placa Arduino Uno.
 
 ---
 
 ## Cómo usar
 
-1. **Conexión del 74HC595:**
-   - **Pin 2 (DS):** Conecta al pin **2** de Arduino (Data).
-   - **Pin 3 (ST_CP):** Conecta al pin **3** de Arduino (Latch).
-   - **Pin 4 (SH_CP):** Conecta al pin **4** de Arduino (Clock).
-   - Conecta las salidas **Q0-Q6** a los segmentos **a-g** del display (usa resistencias).
-2. Abre el archivo `.ino` en el Arduino IDE.
-3. Haz clic en **Cargar**.
-4. El display comenzará una cuenta regresiva del **9 al 0** cada segundo.
-5. Al finalizar la cuenta, el sistema espera 4 segundos y reinicia el ciclo.
+1.  **Conexión del Receptor IR:**
+    * **VCC** ➔ 5V
+    * **GND** ➔ GND
+    * **Signal** ➔ Pin **11**
+2.  **Conexión del Display de 7 Segmentos:**
+    * Conecta los segmentos **a, b, c, d, e, f, g** a los pines digitales **2, 3, 4, 5, 6, 7, 8** respectivamente (usando resistencias).
+3.  Carga el código en tu Arduino.
+4.  Abre el **Monitor Serie** (9600 baudios) para verificar los códigos recibidos.
+5.  Apunta con el mando al receptor y presiona los números del 0 al 9; el display se actualizará instantáneamente.
 
 ---
 
-## Explicación
+## Explicación Técnica
 
-Controlar un display directamente consume muchos pines del Arduino. Al usar el **74HC595**, "empaquetamos" los datos y los enviamos uno tras otro por un solo cable de datos.
+El proyecto funciona como un sistema de traducción: convierte señales invisibles de luz infrarroja en dígitos legibles.
 
 ### Conceptos clave del código:
 
-- **Patrones Binarios (`byte`):**
-  Se define un array llamado `seven_seg_digits` donde cada número está representado por un byte (8 bits). Cada bit indica si un segmento específico (a, b, c, d, e, f, g) debe encenderse (1) o apagarse (0).
-
-  B11111100 // Representa el número 0 encendiendo casi todos los segmentos
-
-- **Función `shiftOut()`:** Es la herramienta clave de Arduino para este proyecto. Permite enviar un byte completo (8 bits) de forma serial a través de un solo pin. La función se encarga de "trocear" el dato y enviarlo **bit a bit** al registro de desplazamiento. El parámetro `LSBFIRST` (*Least Significant Bit First*) indica que el envío comienza por el bit de menor valor.
+* **Librería IRremote:**
+    Esta librería permite al Arduino "escuchar" la señal modulada del mando. El receptor convierte la ráfaga de luz IR en un **código hexadecimal** único (ej. `0xFF6897`).
 
 
 
-- **Manejo del `latchPin` (Pin de cerrojo):** Funciona como un interruptor de seguridad para la visualización. Mientras transmitimos los datos, el pin se mantiene en `LOW`. Solo cuando el `latchPin` sube a `HIGH`, el chip **74HC595** actualiza todas sus salidas de forma simultánea. Esto es fundamental para que el ojo humano no vea el "desfile" de bits, evitando parpadeos extraños en el display durante la carga de datos.
+* **Decodificación con `switch-case`:**
+    La función `translateIR()` actúa como un diccionario. Compara el código recibido (`results.value`) con una lista de códigos conocidos. Si coinciden, ejecuta las instrucciones para encender los segmentos específicos de ese número.
+
+* **Control de Segmentos:**
+    Cada número en el display es una combinación de 7 LEDs independientes. Por ejemplo, para mostrar el número **1**, el código pone en `HIGH` solo los pines **b** y **c**, manteniendo los demás en `LOW`:
+    ```cpp
+    digitalWrite(b, HIGH);
+    digitalWrite(c, HIGH);
+    ```
+
+* **Prevención de Errores:**
+    El código incluye un caso para `0xFFFFFFFF`, que es el código que envían muchos mandos cuando se mantiene pulsado un botón (repetición), evitando que el programa se confunda.
 
 ---
