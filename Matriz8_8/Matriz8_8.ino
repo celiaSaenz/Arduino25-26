@@ -180,6 +180,8 @@ void single() {
 
       delay(delaytime);
 
+
+      
       lc.setLed(0,row,col,true);
 
       delay(delaytime);
